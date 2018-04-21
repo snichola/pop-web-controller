@@ -19,9 +19,11 @@ import java.awt.Robot;
 import java.io.IOException;
 
 public class Application {
+	
+	private static Robot robot;
 
 	public static void main(String[] args) throws AWTException {
-		Robot robot = new Robot();
+		robot = new Robot();
 
 		Undertow server = Undertow.builder().addHttpListener(8080, "0.0.0.0")
 				.setServerOption(UndertowOptions.IDLE_TIMEOUT, 900000)
