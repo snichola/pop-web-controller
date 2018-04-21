@@ -11,4 +11,4 @@ deploy:
   file: target/pop-web-controller*.jar
   on:
     repo: snichola/pop-web-controller
-    branch: master
+    tags: true
