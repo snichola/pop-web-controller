@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link rel="manifest" href="/manifest.json">
+    <style type="text/css" media="screen">
+    html, body { margin:0; padding:0; overflow:hidden }
+    </style>
+
+    <title>POP N MUSIC CONTROLLER</title>
+</head>
+
+<body>
+    <script>
+        var socket;
+        if (window.WebSocket) {
+            socket = new WebSocket("ws://" + location.host + "/controller");
+            socket.onmessage = function(event) {
+                
+            };
+            socket.onopen = function(event) {
+                alert("Web Socket opened.");
+            };
+            socket.onclose = function(event) {
+                alert("Web Socket closed.");
+            };
+        } else {
+            alert("Your browser does not support Websockets.");
+        }
+
+        function send(message) {
+            if (!window.WebSocket) {
+                return;
+            }
+            if (socket.readyState == WebSocket.OPEN) {
+                socket.send(message);
+            } else {
+                alert("The socket is not open.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init, false);
+		var circles;
+		var buttons;
+        function init() {
+            circles = document.querySelectorAll("circle");
+            buttons = document.getElementById("buttons");
+            for (var i = 0; i < circles.length; i++) {
+                console.log(i);
+                circles[i].addEventListener("touchstart", function(event) {
+                    send(event.target.id);
+                    console.log(event.target.id);
+                });
+            }
+        };
+    </script>
+    
+    <svg id="buttons" width="100%" height="100%" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin slice" >
+        <circle id="LW" cx="50" cy="150" r="40" stroke="black" stroke-width="3" fill="white" />
+        <circle id="LY" cx="100" cy="50" r="40" stroke="black" stroke-width="3" fill="yellow" />
+        <circle id="LG" cx="150" cy="150" r="40" stroke="black" stroke-width="3" fill="green" />
+        <circle id="LB" cx="200" cy="50" r="40" stroke="black" stroke-width="3" fill="blue" />
+        <circle id="MR" cx="250" cy="150" r="40" stroke="black" stroke-width="3" fill="red" />
+        <circle id="RB" cx="300" cy="50" r="40" stroke="black" stroke-width="3" fill="blue" />
+        <circle id="RG" cx="350" cy="150" r="40" stroke="black" stroke-width="3" fill="green" />
+        <circle id="RY" cx="400" cy="50" r="40" stroke="black" stroke-width="3" fill="yellow" />
+        <circle id="RW" cx="450" cy="150" r="40" stroke="black" stroke-width="3" fill="white" />
+    </svg>
+    
+    
+
+</body>
+
+</html>
