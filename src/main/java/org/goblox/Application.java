@@ -3,6 +3,7 @@ package org.goblox;
 import io.undertow.Undertow;
 import io.undertow.UndertowOptions;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
+import io.undertow.server.handlers.resource.PathResourceManager;
 import io.undertow.websockets.WebSocketConnectionCallback;
 import io.undertow.websockets.core.AbstractReceiveListener;
 import io.undertow.websockets.core.BufferedTextMessage;
@@ -17,6 +18,7 @@ import static io.undertow.Handlers.websocket;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class Application {
 	
@@ -54,8 +56,7 @@ public class Application {
 						channel.resumeReceives();
 					}
 
-				})).addPrefixPath("/", resource(new ClassPathResourceManager(Application.class.getClassLoader(),
-						Application.class.getPackage())).addWelcomeFiles("index.html")))
+				})).addPrefixPath("/", resource(new ClassPathResourceManager(Application.class.getClassLoader(), "static")).addWelcomeFiles("index.html")))
 				.build();
 
 		server.start();
