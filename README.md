@@ -4,7 +4,7 @@ Web Based Controller for Pop'n Music
 ### Build
 
 ```
-mvn package
+mvn clean package
 ```
 
 ### Run
